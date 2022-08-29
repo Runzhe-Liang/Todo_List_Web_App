@@ -114,7 +114,7 @@ app.get("/:customListName", function (req, res) {
   List.findOne({ name: customListName }, function (err, result) {
     if (err) {
       console.log(err);
-    } else if (!result) {
+    } else if (!result || result.items.length === 0) {
       const list = new List({
         name: customListName,
         items: defaultItems,
