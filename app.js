@@ -28,7 +28,7 @@ const item2 = new Item({
 });
 
 const item3 = new Item({
-  name: "Check the box to delete the item.",
+  name: "<-- Check the box to delete the item.",
 });
 
 const defaultItems = [item1, item2, item3];
@@ -55,15 +55,15 @@ app.get("/", function (req, res) {
 });
 
 app.post("/", function (req, res) {
-  const item = req.body.newItem;
+  const itemName = req.body.newItem;
 
-  if (req.body.list === "Work") {
-    workItems.push(item);
-    res.redirect("/work");
-  } else {
-    items.push(item);
-    res.redirect("/");
-  }
+  const item = new Item({
+    name: itemName,
+  });
+
+  item.save();
+
+  res.redirect("/");
 });
 
 app.get("/work", function (req, res) {
